@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <style>
+        .err {
+            color: red;
+        }
+
+        .label {
+            color: darkorchid;
+        }
+
+        .field {
+            color: black;
+        }
+        .btmrgn {
+            margin-bottom: 10px;
+        }
+    </style>
+    <title>C+R Friends</title>
+</head>
+<body>
+    <br>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h2 class="text-center">These are all my friends!</h2>
+            <br>
+            {% for rec in data %}
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-3 label">First Name:</div>
+                <div class="col-1"></div>
+                <div class="col-4 field">{{ rec.first_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-3 label">Last Name:</div>
+                <div class="col-1"></div>
+                <div class="col-4 field">{{ rec.last_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-3 label">Occupation:</div>
+                <div class="col-1"></div>
+                <div class="col-4 field">{{ rec.occupation }}</div>
+            </div>
+            <hr>
+            {% endfor %}
+            <br>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">     
+                    <h2 class="text-center">Add a friend</h2>
+                    <br>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="err">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form action="/register" method="post">
+                        <div class="row btmrgn">
+                            <div class="col-1"></div>
+                            <label class="col-4 label" for="name">First Name:</label>
+                            <div class="col-1"></div>
+                            <input class="col-5" type="text" name="first_name" id="first_name" placeholder="" value="{{ session["first_name"] }}">
+                        </div>
+                        <div class="row btmrgn">
+                            <div class="col-1"></div>
+                            <label class="col-4 label" for="name">Last Name:</label>
+                            <div class="col-1"></div>
+                            <input class="col-5" type="text" name="last_name" id="last_name" placeholder="" value="{{ session["last_name"] }}">
+                        </div>
+                        <div class="row btmrgn">
+                            <div class="col-1"></div>
+                            <label class="col-4 label" for="name">Occupation:</label>
+                            <div class="col-1"></div>
+                            <input class="col-5" type="text" name="occupation" id="occupation" placeholder="" value="{{ session["occupation"] }}">
+                        </div>
+                        <div class="row">
+                            <div class="col-8"></div>
+                            <button class="col-3" type="submit">Add</button>
+                            <div class="col-1"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
